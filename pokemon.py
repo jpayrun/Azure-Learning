@@ -9,6 +9,15 @@ from typing import Any, Literal
 import requests
 
 
+class PokemonImage:
+
+    def __init__(self, image: str) -> None:
+        self.image = image
+
+    @property
+    def front_default(self) -> str:
+        return self.image['front_default']
+
 class PokemonStats:
 
     StatsList = Literal["hp", "attack", "defense", "special-attack", "special-defense", "speed"]
@@ -70,6 +79,10 @@ class Pokemon:
         return self._pokemon['name']
     
     @property
+    def sprites(self) -> PokemonImage:
+        return PokemonImage(self._pokemon['sprites'])
+
+    @property
     def stats(self) -> PokemonStats:
         return PokemonStats(self._pokemon['stats'])
 
@@ -96,6 +109,10 @@ class Pokemon:
     @property
     def speed(self) -> int:
         return self.stats.speed
+       
+    @property
+    def images(self) -> str:
+        return self.sprites.front_default
     
     def pokemon_stats(self) -> dict[str, int]:
         return {
@@ -168,4 +185,5 @@ if __name__ == "__main__":
     data = pokemon.get_pokemon(7)
     print(data.name)
     print(data.hp)
+    print(data.images)
     print(data.pokemon_stats())
