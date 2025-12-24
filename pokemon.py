@@ -7,6 +7,15 @@ from typing import Any
 
 import requests
 
+class PokemonStats:
+
+    def __init__(self, stats: str) -> None:
+        self.stats = stats
+    
+    @property
+    def hp(self) -> str:
+        return self.stats[0]['base_stat']
+
 class Pokemon:
     """
     Class for working with pokemon data
@@ -30,10 +39,14 @@ class Pokemon:
             str: Pokemon name
         """
         return self._pokemon['name']
+    
+    @property
+    def stats(self) -> PokemonStats:
+        return PokemonStats(self._pokemon['stats'])
 
     @property
     def hp(self) -> int:
-        return self._pokemon['stats'][0]['base_stat']
+        return self.stats.hp
 
     def __getitem__(self, key: str) -> Any:
         """
