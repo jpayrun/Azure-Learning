@@ -12,7 +12,7 @@ import requests
 class PokemonStats:
 
     StatsList = Literal["hp", "attack", "defense", "special-attack", "special-defense", "speed"]
-    StatsDict = {"hp": 0, "attack": 1, "defense": 2, "special-attack": 3, "speial-defense": 4, "speed": 5}
+    StatsDict = {"hp": 0, "attack": 1, "defense": 2, "special-attack": 3, "special-defense": 4, "speed": 5}
 
     def __init__(self, stats: str) -> None:
         self.stats = stats
@@ -96,6 +96,16 @@ class Pokemon:
     @property
     def speed(self) -> int:
         return self.stats.speed
+    
+    def pokemon_stats(self) -> dict[str, int]:
+        return {
+            'hp': self.hp,
+            'attack': self.attack,
+            'defense': self.defense,
+            'special-attack': self.special_attack,
+            'special-defense': self.speical_defense,
+            'speed': self.speed
+        }
 
     def __getitem__(self, key: str) -> Any:
         """
@@ -152,8 +162,10 @@ class PokemonAPI:
         #     raise 
         return Pokemon(res)
 
+
 if __name__ == "__main__":
     pokemon = PokemonAPI()
     data = pokemon.get_pokemon(7)
     print(data.name)
     print(data.hp)
+    print(data.pokemon_stats())
