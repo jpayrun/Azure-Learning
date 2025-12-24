@@ -17,13 +17,29 @@ class PokemonStats:
     def __init__(self, stats: str) -> None:
         self.stats = stats
     
-    def get_stats_value(self, key: StatsList) -> None:
-        return self.stats[self.StatsDict[key]]['base_stat']
+    def get_stats_value(self, key: StatsList) -> int:
+        return int(self.stats[self.StatsDict[key]]['base_stat'])
 
     @property
     def hp(self) -> int:
         return self.get_stats_value('hp')
     
+    @property
+    def attack(self) -> int:
+        return self.get_stats_value('attack')
+    
+    @property
+    def defense(self) -> int:
+        return self.get_stats_value('defense')
+    
+    @property
+    def speical_attack(self) -> int:
+        return self.get_stats_value("special-attack")
+    
+    @property
+    def speical_defense(self) -> int:
+        return self.get_stats_value("special-defense")
+
     @property
     def speed(self) -> int:
         return self.get_stats_value('speed')
