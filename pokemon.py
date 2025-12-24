@@ -1,4 +1,6 @@
-
+"""
+A module for working with data from the pokemon api
+"""
 from __future__ import annotations
 import json
 from typing import Any
@@ -42,18 +44,41 @@ class Pokemon:
         return self._pokemon[key]
 
 class PokemonAPI:
-
+    """
+    The opperations available from the pokemon api
+    """
     def __init__(self, base_url: str = "https://pokeapi.co/api/v2") -> None:
         self.base_url = base_url
 
     @staticmethod
     def _process_request(url: str) -> dict[Any, Any]:
+        """
+        Process the url request and return result if valid
+
+        Args:
+            url (str): The url string to pull from
+
+        Raises:
+            requests.RequestException: Issue with the reques
+
+        Returns:
+            dict[Any, Any]: The result dictionary
+        """
         req = requests.get(url)
         if req.status_code == 200:
             return req.json()
         raise requests.RequestException(f"Response error code {req.status_code}")
 
-    def get_pokemon(self, id: int) -> dict[Any, Any]:
+    def get_pokemon(self, id: int) -> Pokemon:
+        """
+        Get a pokemon by id
+
+        Args:
+            id (int): The id of the pokemon to get
+
+        Returns:
+            Pokemon: The data for the pokemon
+        """
         res = self._process_request(f"{self.base_url}/pokemon/{id}")
         return Pokemon(res)
 
