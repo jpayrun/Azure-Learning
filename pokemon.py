@@ -31,6 +31,10 @@ class Pokemon:
         """
         return self._pokemon['name']
 
+    @property
+    def hp(self) -> int:
+        return self._pokemon['stats'][0]['base_stat']
+
     def __getitem__(self, key: str) -> Any:
         """
         Used for returning items from pokemon instance
@@ -85,4 +89,5 @@ class PokemonAPI:
 if __name__ == "__main__":
     pokemon = PokemonAPI()
     data = pokemon.get_pokemon(7)
-    print(data["name"])
+    print(data.name)
+    print(data.hp)
