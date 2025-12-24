@@ -8,32 +8,26 @@ from typing import Any, Literal
 
 import requests
 
-StatsList = Literal["hp", "attack", "defense", "special-attack", "special-defense", "speed"]
-StatsDict = {"hp": 0, "attack": 1, "defense": 2, "special-attack": 3, "speial-defense": 4, "speed": 5}
-
-class StatsList(Enum):
-
-    HP = 0
-    ATTACK = 1
-    DEFENSE = 2
-    SPECIALATTACK = 3
-    SPECIALDEFENSE = 4
-    SPEED = 5
-
-    # @classmethod
-    # def 
 
 class PokemonStats:
+
+    StatsList = Literal["hp", "attack", "defense", "special-attack", "special-defense", "speed"]
+    StatsDict = {"hp": 0, "attack": 1, "defense": 2, "special-attack": 3, "speial-defense": 4, "speed": 5}
 
     def __init__(self, stats: str) -> None:
         self.stats = stats
     
     def get_stats_value(self, key: StatsList) -> None:
-        return self.stats[StatsDict[key]]['base_stat']
+        return self.stats[self.StatsDict[key]]['base_stat']
 
     @property
-    def hp(self) -> str:
+    def hp(self) -> int:
         return self.get_stats_value('hp')
+    
+    @property
+    def speed(self) -> int:
+        return self.get_stats_value('speed')
+
 
 class Pokemon:
     """
@@ -78,6 +72,7 @@ class Pokemon:
             Any: Value of item
         """
         return self._pokemon[key]
+
 
 class PokemonAPI:
     """
