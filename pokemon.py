@@ -76,6 +76,26 @@ class Pokemon:
     @property
     def hp(self) -> int:
         return self.stats.hp
+    
+    @property
+    def attack(self) -> int:
+        return self.stats.attack
+    
+    @property
+    def defense(self) -> int:
+        return self.stats.defense
+    
+    @property
+    def special_attack(self) -> int:
+        return self.stats.speical_attack
+
+    @property
+    def speical_defense(self) -> int:
+        return self.stats.speical_defense
+
+    @property
+    def speed(self) -> int:
+        return self.stats.speed
 
     def __getitem__(self, key: str) -> Any:
         """
@@ -126,7 +146,10 @@ class PokemonAPI:
         Returns:
             Pokemon: The data for the pokemon
         """
+        # try:
         res = self._process_request(f"{self.base_url}/pokemon/{id}")
+        # except requests.RequestException:
+        #     raise 
         return Pokemon(res)
 
 if __name__ == "__main__":
