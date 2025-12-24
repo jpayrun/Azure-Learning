@@ -2,19 +2,38 @@
 A module for working with data from the pokemon api
 """
 from __future__ import annotations
+from enum import Enum
 import json
-from typing import Any
+from typing import Any, Literal
 
 import requests
+
+StatsList = Literal["hp", "attack", "defense", "special-attack", "special-defense", "speed"]
+StatsDict = {"hp": 0, "attack": 1, "defense": 2, "special-attack": 3, "speial-defense": 4, "speed": 5}
+
+class StatsList(Enum):
+
+    HP = 0
+    ATTACK = 1
+    DEFENSE = 2
+    SPECIALATTACK = 3
+    SPECIALDEFENSE = 4
+    SPEED = 5
+
+    # @classmethod
+    # def 
 
 class PokemonStats:
 
     def __init__(self, stats: str) -> None:
         self.stats = stats
     
+    def get_stats_value(self, key: StatsList) -> None:
+        return self.stats[StatsDict[key]]['base_stat']
+
     @property
     def hp(self) -> str:
-        return self.stats[0]['base_stat']
+        return self.get_stats_value('hp')
 
 class Pokemon:
     """
