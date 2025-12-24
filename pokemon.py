@@ -1,8 +1,21 @@
 
+from __future__ import annotations
 import json
 from typing import Any
 
 import requests
+
+class Pokemon:
+
+    def __init__(self, pokemon: Pokemon) -> None:
+        self._pokemon = pokemon
+    
+    @property
+    def name(self) -> str:
+        return self._pokemon['name']
+
+    def __getitem__(self, key: str) -> Any:
+        return self._pokemon[key]
 
 class PokemonAPI:
 
@@ -17,7 +30,8 @@ class PokemonAPI:
         raise requests.RequestException(f"Response error code {req.status_code}")
 
     def get_pokemon(self, id: int) -> dict[Any, Any]:
-        return self._process_request(f"{self.base_url}/pokemon/{id}")
+        res = self._process_request(f"{self.base_url}/pokemon/{id}")
+        return Pokemon(res)
 
 if __name__ == "__main__":
     pokemon = PokemonAPI()
