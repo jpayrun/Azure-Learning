@@ -6,15 +6,39 @@ from typing import Any
 import requests
 
 class Pokemon:
+    """
+    Class for working with pokemon data
+    """
 
     def __init__(self, pokemon: Pokemon) -> None:
+        """
+        Constructor
+
+        Args:
+            pokemon (Pokemon): A pokemon instance returned from api
+        """
         self._pokemon = pokemon
     
     @property
     def name(self) -> str:
+        """
+        Name of the pokemeon
+
+        Returns:
+            str: Pokemon name
+        """
         return self._pokemon['name']
 
     def __getitem__(self, key: str) -> Any:
+        """
+        Used for returning items from pokemon instance
+
+        Args:
+            key (str): The key of item to return
+
+        Returns:
+            Any: Value of item
+        """
         return self._pokemon[key]
 
 class PokemonAPI:
