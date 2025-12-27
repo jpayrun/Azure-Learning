@@ -2,6 +2,7 @@
 import json
 
 from dash import Dash, callback, dcc, html, Input, Output
+import pandas as pd
 import plotly.express as ex
 
 from pokemon import Pokemon, PokemonAPI
@@ -12,6 +13,7 @@ app.layout = [
     html.H1(children="", id="pokemon-name"),
     dcc.Input(value = 7, type='number', min=1, max=151, id="pokemon-id"),
     html.Img(src="", id="pokemon-image"),
+    dcc.Graph(figure={}, id='stats-graph'),
     # dcc.Store stores the intermediate value
     dcc.Store(id='intermediate-value')
 ]
@@ -43,6 +45,18 @@ def pokemon_name(data: str):
 def pokemon_image(data):
     dataset = json.loads(data)
     return dataset['image']
+
+@callback(
+    Output("stats-graph", "figure"),
+    Input('intermediate-value', 'data')
+)
+def graph(data) -> None:
+    dataset = json.loads(data)
+    # print(dataset['stats'])
+    df = pd.DataFrame([dataset['stats']]).T
+    df.columns = ['Value']
+    print(df)
+    return ex.bar(df, x=df.index, y='Value', range_y=[0, 160])
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8050)
