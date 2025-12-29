@@ -124,17 +124,17 @@ class Pokemon:
             'speed': self.speed
         }
 
-    def __getitem__(self, key: str) -> Any:
-        """
-        Used for returning items from pokemon instance
+    # def __getitem__(self, key: str) -> Any:
+    #     """
+    #     Used for returning items from pokemon instance
 
-        Args:
-            key (str): The key of item to return
+    #     Args:
+    #         key (str): The key of item to return
 
-        Returns:
-            Any: Value of item
-        """
-        return self._pokemon[key]
+    #     Returns:
+    #         Any: Value of item
+    #     """
+    #     return self._pokemon[key]
 
 
 class PokemonAPI:
