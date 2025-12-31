@@ -6,6 +6,9 @@ __pycache__/
 # VScode settings
 .vscode
 
+# Hide Keys
+/.keys/*
+
 /.scripts/*
 
 # C extensions
